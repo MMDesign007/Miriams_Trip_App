@@ -1,5 +1,10 @@
-<%= @user.name %>'s trips!
+<div class="container">
+	<h1><%= @user.name %>'s trips!</h1>
 
-<%@trips.each do |t| %>
-<p><%=t.destination.name%></p>
-<%end%>
+	<%@trips.each do |t| %>
+	<p><%=t.destination.name%></p>
+	<%end%>
+
+	<a href="/users/<%=@user.id%>/trips/new">Add Trip</a>
+
+</div>
