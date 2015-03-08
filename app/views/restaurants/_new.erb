@@ -1,0 +1,8 @@
+<h1> Add Restaurant Review</h1>
+<form method='post' action='/users/<%=@user.id%>/trips/<%=@user_trip.id%>/restaurants'>
+	<label for="restaurant">Restaurant Name:</label>
+  <input type = 'text' name='name' placeholder='restaurant name'><br>
+  <label for="restaurant">Rating:</label>
+  <input type = 'integer' name='rating' placeholder='rating'><br>
+  <input type = 'submit' value = 'submit'><br>
+</form>

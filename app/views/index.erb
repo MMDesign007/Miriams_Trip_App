@@ -1,4 +1,4 @@
-<div class="info">
+<div class="container">
 	<h1><%= @user.name %>'s trips!</h1>
 
 	<%@trips.each do |trip| %>
@@ -6,5 +6,4 @@
 	<%end%>
 
 	<a href="/users/<%=@user.id%>/trips/new">Add Trip</a>
-
 </div>

@@ -1,42 +1,69 @@
+# Find user
 get '/users/:user_id/trips' do
   @user = User.find(params[:user_id])
-  @destinations = Destination.all
   @trips = @user.trips
   erb :index
 end
 
-get '/users/:user_id/trips/new' do 
+# Get trip form
+get '/users/:user_id/trips/new' do
 	@user = User.find(params[:user_id])
 	erb :'trips/new'
 end
 
 post '/users/:user_id/trips' do
-	#find by or create, finds the destination or creates a new destination
-	puts params
+	# find by or create, finds the destination or creates a new destination
 	@destination = Destination.find_or_create_by(name: params[:destination])
-
-	#creates a new trip
+	# creates a new trip, includes destination object, id for current user, days
 	@trip = Trip.new(destination: @destination, user_id: session[:user_id], days: params[:days])
-
-
+  # save trip if includes all params and redirect
 	if @trip.save
 		redirect "/users/#{params[:user_id]}/trips"
 	else
-		# @message = "please fill out!"
-		redirect "/users/#{params[:user_id]}/trips/new"
-		# erb :'trips/new'
+		@message = "please fill out!"
+		redirect "/users/#{params[:user_id]}/trips"
 	end
 end
 
-get '/users/:user_id/trips/:trip_id/restaurants' do 
-  # @user = User.find(params[:user_id])
-  # # @trip = Trip.find_by(user: @user)
-  # @destination = Destination.find_by(params[:destination_id])
-  # @trips = @destination.restaurants
+# find user, find trip by user_id, show restaurants
+get '/users/:user_id/trips/:trip_id/restaurants' do
  @user = User.find(params[:user_id])
  @user_trip = Trip.find_by(user: @user.id)
  @restaurants = @user_trip.destination.restaurants
 	erb :'/restaurants/index'
 end
 
+post '/users/:user_id/trips/:trip_id/restaurants' do
+ @user = User.find(params[:user_id])
+ @user_trip = Trip.find_by(user: @user.id)
+ @restaurants = Restaurant.new(params[:name], params[:rating])
+ @reviews = @restaurants
+  erb :'/restaurants/index'
+end
 
+get '/users/:user_id/trips/:trip_id/restaurants/review' do
+ @user = User.find(params[:user_id])
+ @user_trip = Trip.find_by(user: @user.id)
+ @restaurants = @user_trip.destination.restaurants
+ erb :'/restaurants/review'
+end
+
+post '/users/:user_id/trips/:trip_id/restaurants/review' do
+ @user = User.find(params[:user_id])
+ @user_trip = Trip.find_by(user: @user.id)
+ @restaurants = @user_trip.destination.restaurants
+ erb :'/restaurants'
+end
+
+get '/users/:user_id/trips/:trip_id/restaurants/review/new' do
+ @user = User.find(params[:user_id])
+ @user_trip = Trip.find_by(user: @user.id)
+ @restaurants = @user_trip.destination.restaurants
+
+
+  if request.xhr? #recieves request, send below
+    erb :'restaurants/_new', layout: false
+  else
+    redirect '/users/#{params[:user_id]}/trips/#{params[:trip_id]}/restaurants'
+  end
+end
