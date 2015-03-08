@@ -1,4 +1,20 @@
-#container {    
-    margin-left: auto;
-    margin-right: auto;  
-  }
+.info {    
+  margin-left: auto;
+	margin-right: auto;
+	width: 50em; 
+}
+
+.container {    
+  margin-left: auto;
+	margin-right: auto;
+	width: 50em; 
+}
+
+h1 {
+	font-family: 'Tinos', serif;
+}
+
+body {
+  background-color: #e3e1d1;
+	background-image: url(http://www.transparenttextures.com/patterns/cream-pixels.png);
+}

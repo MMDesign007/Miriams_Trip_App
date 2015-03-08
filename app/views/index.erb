@@ -1,8 +1,8 @@
-<div class="container">
+<div class="info">
 	<h1><%= @user.name %>'s trips!</h1>
 
-	<%@trips.each do |t| %>
-	<p><%=t.destination.name%></p>
+	<%@trips.each do |trip| %>
+	<a href="/users/<%=@user.id%>/trips/<%=trip.id%>/restaurants"><%=trip.destination.name%></a>
 	<%end%>
 
 	<a href="/users/<%=@user.id%>/trips/new">Add Trip</a>

@@ -28,5 +28,15 @@ post '/users/:user_id/trips' do
 	end
 end
 
+get '/users/:user_id/trips/:trip_id/restaurants' do 
+  # @user = User.find(params[:user_id])
+  # # @trip = Trip.find_by(user: @user)
+  # @destination = Destination.find_by(params[:destination_id])
+  # @trips = @destination.restaurants
+ @user = User.find(params[:user_id])
+ @user_trip = Trip.find_by(user: @user.id)
+ @restaurants = @user_trip.destination.restaurants
+	erb :'/restaurants/index'
+end
 
 
