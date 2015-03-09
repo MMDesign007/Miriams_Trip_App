@@ -1,9 +1,11 @@
 <div class="container">
 	<h1><%= @user.name %>'s Favorite Restaurants</h1>
 
-	<%@restaurants.each do |restaurant| %>
-	<%=restaurant.name%>
-	<%end%>
+  <% @destinations.each do |destination| %>
+	 <% destination.restaurants.each do |restaurant| %>
+	   <%=restaurant.name%>
+  	<%end%>
+  <%end%>
 
   <a href="/users/<%=@user.id%>/trips/<%=@user.id%>/restaurants/review/new" id="review-link">Add Restaurant Review</a>
 </div>
